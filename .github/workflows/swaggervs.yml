@@ -1,0 +1,33 @@
+name: Swagger VS
+
+on:
+  push:
+    branches:
+      - dast
+  pull_request:
+    branches:
+      - dast
+
+jobs:
+  dast:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        if [ -f requirements.txt ]; then
+          pip install -r requirements.txt
+        fi
+
+    - name: Scanning unpatched website
+      run: python swaggervs.py https://vulnapi.csalab.app
+    
+    - name: Scanning patched website
+      run: python swaggervs.py https://vulnapi-patch.csalab.app
