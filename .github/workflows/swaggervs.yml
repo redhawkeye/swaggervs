@@ -3,13 +3,13 @@ name: Swagger VS
 on:
   push:
     branches:
-      - dast
+      - main
   pull_request:
     branches:
-      - dast
+      - main
 
 jobs:
-  dast:
+  swaggervs:
     runs-on: ubuntu-latest
     steps:
     - name: Check out code
